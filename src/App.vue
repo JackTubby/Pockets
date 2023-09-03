@@ -1,5 +1,6 @@
 <script lang="ts">
   import { ref, defineComponent } from 'vue'
+  import Pockets from './components/Pockets.vue'
 
   interface Pocket {
     title: string | null,
@@ -8,6 +9,9 @@
   }
 
   export default defineComponent({
+    components: {
+      Pockets,
+    },
     setup() {
       const pocket = ref<Pocket>({
         title: null,
@@ -26,6 +30,9 @@
   <main class="container mx-auto">
     <div class="text-center">
       <h1>Pockets</h1>
+    </div>
+    <div>
+      <Pockets />
     </div>
   </main>
 </template>

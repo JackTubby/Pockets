@@ -24,6 +24,9 @@ export default defineComponent({
 			type: String,
 			default: 'Modal Title',
 		},
+		type: {
+			type: String
+		}
 	},
 	emits: ['close'],
 	setup(props, { emit }) {

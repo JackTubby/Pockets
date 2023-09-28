@@ -1,7 +1,7 @@
 <template>
-  <Modal :show="show" @close="$emit('close')">
+  <Modal :show="show" :title="modalTitle" @close="$emit('close')">
     <!-- <div v-if="type === 'account'"> -->
-      <AccountForm></AccountForm>
+    <AccountForm></AccountForm>
     <!-- </div>
     <div v-if="type === 'pocket'">
       <h2>POCKET</h2>
@@ -9,9 +9,9 @@
   </Modal>
 </template>
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
-import Modal from './Modal.vue';
-import AccountForm from '../forms/AccountForm.vue';
+import { defineComponent, PropType, ref } from "vue";
+import Modal from "./Modal.vue";
+import AccountForm from "../forms/AccountForm.vue";
 
 export default defineComponent({
   components: {
@@ -22,6 +22,12 @@ export default defineComponent({
     show: Boolean,
     type: String,
   },
-  emits: ['close'],
+  emits: ["close"],
+  setup() {
+    const modalTitle = ref("Account Details");
+    return {
+      modalTitle,
+    };
+  },
 });
 </script>

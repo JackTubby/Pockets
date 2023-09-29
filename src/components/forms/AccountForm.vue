@@ -2,7 +2,7 @@
   <div>
     <form
       class="flex flex-col items-center gap-y-4"
-      @submit.prevent="handleSubmit"
+      @submit.prevent="createUser"
     >
       <select
         class="w-8/12 p-2 text-lg border border-gray-300 rounded-md"
@@ -39,20 +39,13 @@
         Add Account
       </button>
     </form>
-    <div>
-      <h2>Saved Pockets:</h2>
-      <ul>
-        <li v-for="(savedData, index) in savedFormData" :key="index">
-          {{ savedData.name }} - {{ savedData.bank }} - {{ savedData.digits }} -
-          {{ savedData.balance }}
-        </li>
-      </ul>
-    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
+import { collection, addDoc } from "firebase/firestore";
+import db from "../../firebase/init";
 
 interface FormData {
   bank: string;
@@ -70,35 +63,24 @@ export default defineComponent({
       balance: "",
     });
 
-    const savedFormData = ref<FormData[]>([]);
+    const createUser = async () => {
+      const colRef = collection(db, "bank_account");
 
-    // Handle form submission
-    const handleSubmit = () => {
-      // Save the current form data to local storage
-      const currentData = { ...formData.value };
-      savedFormData.value.push(currentData);
-      localStorage.setItem("formData", JSON.stringify(savedFormData.value));
-      formData.value = {
-        bank: "",
-        name: "",
-        digits: "",
-        balance: "",
+      // Using form data instead of hard-coded data
+      const dataObj = {
+        bank: formData.value.bank,
+        name: formData.value.name,
+        digits: formData.value.digits,
+        balance: formData.value.balance,
       };
-    };
-    // Load saved data from local storage on component mount
-    const loadDataFromLocalStorage = () => {
-      const storedData = localStorage.getItem("formData");
-      if (storedData) {
-        savedFormData.value = JSON.parse(storedData);
-      }
+
+      const docRef = await addDoc(colRef, dataObj);
+      console.log("Document was created with ID:", docRef.id);
     };
 
-    // Load data from local storage when the component is mounted
-    onMounted(loadDataFromLocalStorage);
     return {
       formData,
-      savedFormData,
-      handleSubmit,
+      createUser,
     };
   },
 });

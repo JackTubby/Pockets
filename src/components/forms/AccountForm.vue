@@ -44,7 +44,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import firebaseAccountHelpers from "../../firebase/helpers";
+import firebaseAccountHelpers from "../../firebase/accountHelpers";
 
 interface FormData {
   bank: string;

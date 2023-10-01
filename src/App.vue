@@ -1,15 +1,18 @@
 <template>
   <main class="container mx-auto">
-    <div class="text-center mb-20 flex flex-col gap-y-2">
+    <div class="flex flex-col mb-20 text-center gap-y-2">
       <h2>Accounts</h2>
+      <div class="mb-6">
+        <button class="px-6 py-2 bg-green-400 rounded-2xl" @click="openCreateModal('account')">Add Account</button>
+      </div>
       <div>
-        <button class="bg-green-400 px-6 py-2 rounded-2xl" @click="openCreateModal('account')">Add Account</button>
+        <Accounts />
       </div>
     </div>
-    <div class="text-center flex flex-col gap-y-2">
+    <div class="flex flex-col text-center gap-y-2">
       <h2>Pockets</h2>
       <div>
-        <button class="bg-green-400 px-6 py-2 rounded-2xl" @click="openCreateModal('pocket')">Add Pocket</button>
+        <button class="px-6 py-2 bg-green-400 rounded-2xl" @click="openCreateModal('pocket')">Add Pocket</button>
       </div>
     </div>
     <div>
@@ -20,6 +23,7 @@
 </template>
 <script lang="ts">
   import { defineComponent, ref } from 'vue'
+  import Accounts from './components/Accounts.vue'
   import Pockets from './components/Pockets.vue'
   import FormsModal from './components/modals/FormsModal.vue'
 
@@ -27,6 +31,7 @@
     components: {
       Pockets,
       FormsModal,
+      Accounts,
     },
     setup() {
       const showModal = ref(false)

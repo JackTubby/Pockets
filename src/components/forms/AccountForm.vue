@@ -43,9 +43,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from "vue";
-import { collection, addDoc } from "firebase/firestore";
-import db from "../../firebase/init";
+import { defineComponent, ref } from "vue";
+import firebaseAccountHelpers from "../../firebase/helpers";
 
 interface FormData {
   bank: string;
@@ -62,20 +61,15 @@ export default defineComponent({
       digits: "",
       balance: "",
     });
-
     const createUser = async () => {
-      const colRef = collection(db, "bank_account");
-
-      // Using form data instead of hard-coded data
-      const dataObj = {
+      const data = {
         bank: formData.value.bank,
         name: formData.value.name,
         digits: formData.value.digits,
         balance: formData.value.balance,
       };
-
-      const docRef = await addDoc(colRef, dataObj);
-      console.log("Document was created with ID:", docRef.id);
+      firebaseAccountHelpers.create(data);
+      return;
     };
 
     return {

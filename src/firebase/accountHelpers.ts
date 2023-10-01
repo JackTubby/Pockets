@@ -1,7 +1,11 @@
-import { collection, addDoc } from "firebase/firestore"
+// https://firebase.google.com/docs/firestore/query-data/get-data#get_all_documents_in_a_collection
+import { collection, addDoc, getDocs } from "firebase/firestore"
 import db from "./init"
 
 const create = async (data) => {
+  // addDoc will throw an exception if the doc already exists, 
+  // while setDoc will either create or overwrite it 
+  // (or ‘update’ it if you use merge option)
   try {
     const collectionRef = collection(db, "bank_account")
     const documentRef = await addDoc(collectionRef, data)
@@ -12,15 +16,25 @@ const create = async (data) => {
   }
 }
 
-const getData = () => {}
+const get = async () => {
+  try {
+    const getCollection = await getDocs(collection(db, "bank_account"))
+    getCollection.forEach(doc => {
+      console.log(doc.id, " => ", doc.data());
+    })
+  } 
+  catch (err) {
+    console.log("Error getting documents: ", err)
+  }
+}
 
-const updateData = () => {}
+const update = () => {}
 
-const deleteData = () => {}
+const remove = () => {}
 
 export default {
   create,
-  getData,
-  updateData,
-  deleteData,
+  get,
+  update,
+  remove,
 }

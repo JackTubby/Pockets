@@ -1,11 +1,6 @@
 <template>
   <Modal :show="show" :title="modalTitle" @close="$emit('close')">
-    <!-- <div v-if="type === 'account'"> -->
     <AccountForm></AccountForm>
-    <!-- </div>
-    <div v-if="type === 'pocket'">
-      <h2>POCKET</h2>
-    </div> -->
   </Modal>
 </template>
 <script lang="ts">

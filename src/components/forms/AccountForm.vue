@@ -5,35 +5,32 @@
       @submit.prevent="createUser"
     >
       <select
-        class="w-8/12 p-2 text-lg border border-gray-300 rounded-md"
-        name=""
-        id=""
-        placeholder="Select Bank"
-        v-model="formData.bank"
-      >
-        <option value="NatWest">NatWest</option>
-        <option value="NationWide">Nation Wide</option>
+        class="w-8/12 p-2 text-lg border select select-bordered rounded-md cursor-pointer"
+        v-model="formData.bank">
+        <option value="" disabled selected class="text-base-300 cursor-pointer">Select Bank</option>
+        <option value="NatWest" class="cursor-pointer">NatWest</option>
+        <option value="NationWide" class="cursor-pointer">Nation Wide</option>
       </select>
       <input
-        class="w-8/12 p-2 text-lg border border-gray-300 rounded-md"
+        class="w-8/12 input input-bordered p-2 text-lg border rounded-md"
         type="text"
         placeholder="Card Name"
         v-model="formData.name"
       />
       <input
-        class="w-8/12 p-2 text-lg border border-gray-300 rounded-md"
+        class="w-8/12 input input-bordered p-2 text-lg border rounded-md"
         type="text"
         placeholder="Last Four Digits"
         v-model="formData.digits"
       />
       <input
-        class="w-8/12 p-2 text-lg border border-gray-300 rounded-md"
+        class="w-8/12 input input-bordered p-2 text-lg border rounded-md"
         type="number"
         placeholder="Balance"
         v-model="formData.balance"
       />
       <button
-        class="px-6 py-2 text-xl font-semibold text-white bg-green-500 rounded-md shadow-md hover:bg-green-400"
+        class="px-6 py-2 text-xl font-semibold text-primary-content bg-success rounded-md shadow-md"
         type="submit"
       >
         Add Account

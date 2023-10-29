@@ -6,15 +6,17 @@
         <button class="px-6 py-2 bg-primary text-primary-content hover:bg-primary-focus rounded-2xl"
           @click="openCreateModal('account')">Add Account</button>
       </div>
-      <div>
+      <div class="flex gap-x-8">
         <Accounts 
-          v-for="account in accounts" 
+          v-for="account in accounts"
+          v-if = "accounts.length > 0"
           :key="account.id" 
           :bank="account.bank" 
           :balance="account.balance"
           :currency="'GBP'" 
           :digits="account.digits"
           :name="account.name" />
+          <div class="mx-auto" v-else>No account data available</div>
       </div>
     </div>
     <div class="flex flex-col text-center gap-y-2">

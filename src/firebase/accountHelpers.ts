@@ -2,7 +2,7 @@
 import { collection, addDoc, getDocs } from "firebase/firestore"
 import db from "./init"
 
-const create = async (data) => {
+const create = async (data: any) => {
   // addDoc will throw an exception if the doc already exists, 
   // while setDoc will either create or overwrite it 
   // (or ‘update’ it if you use merge option)
@@ -13,18 +13,21 @@ const create = async (data) => {
   }
   catch (err) {
     console.log("Error creating document: ", err)
+    throw err;
   }
 }
 
 const get = async () => {
   try {
-    const getCollection = await getDocs(collection(db, "bank_account"))
-    getCollection.forEach(doc => {
-      console.log(doc.id, " => ", doc.data());
-    })
-  } 
+    const querySnapshot = await getDocs(collection(db, "bank_account"))
+    const documents = querySnapshot.docs.map(doc => {
+      return { id: doc.id, ...doc.data() };
+    });
+      return documents
+  }
   catch (err) {
-    console.log("Error getting documents: ", err)
+    console.log("Error fetching documents", err)
+    throw err;
   }
 }
 

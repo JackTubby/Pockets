@@ -29,6 +29,7 @@
     <div>
       <Pockets />
     </div>
+    <div class="bg-success hover:opacity-50 cursor-pointer transition-all ease-in-out text-primary-content text-4xl absolute right-10 bottom-10 rounded-full px-4 py-2">+</div>
     <FormsModal :show="showModal" @close="showModal = false" :type="modalType"></FormsModal>
   </main>
 </template>

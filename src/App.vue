@@ -3,33 +3,39 @@
     <div class="flex flex-col mb-20 text-center gap-y-2">
       <h2>Accounts</h2>
       <div class="mb-6">
-        <button class="px-6 py-2 bg-primary text-primary-content hover:bg-primary-focus rounded-2xl"
-          @click="openCreateModal('account')">Add Account</button>
+
       </div>
       <div class="flex gap-x-8">
-        <Accounts 
-          v-for="account in accounts"
-          v-if = "accounts.length > 0"
-          :key="account.id" 
-          :bank="account.bank" 
-          :balance="account.balance"
-          :currency="'GBP'" 
-          :digits="account.digits"
-          :name="account.name" />
-          <div class="mx-auto" v-else>No account data available</div>
+        <Accounts v-for="account in accounts" v-if="accounts.length > 0" :key="account.id" :bank="account.bank"
+          :balance="account.balance" :currency="'GBP'" :digits="account.digits" :name="account.name" />
+        <div class="mx-auto" v-else>No account data available</div>
       </div>
     </div>
     <div class="flex flex-col text-center gap-y-2">
       <h2>Pockets</h2>
       <div>
-        <button class="px-6 py-2 bg-primary text-primary-content hover:bg-primary-focus rounded-2xl"
-          @click="openCreateModal('pocket')">Add Pocket</button>
+
       </div>
     </div>
     <div>
       <Pockets />
     </div>
-    <div class="bg-success hover:opacity-50 cursor-pointer transition-all ease-in-out text-primary-content text-4xl absolute right-10 bottom-10 rounded-full px-4 py-2">+</div>
+    <div class="absolute right-10 bottom-10">
+      <div class="flex flex-col gap-y-4 items-end">
+        <button v-if="menu" class="px-6 py-2 bg-primary text-primary-content hover:bg-primary-focus rounded-2xl z-20"
+          @click="openCreateModal('account')">Add Account</button>
+
+        <button v-if="menu" class="px-6 py-2 bg-primary text-primary-content hover:bg-primary-focus rounded-2xl z-20"
+          @click="openCreateModal('pocket')">Add Pocket</button>
+
+        <div
+          class="bg-success hover:opacity-50 cursor-pointer transition-all ease-in-out text-primary-content text-4xl rounded-full w-14 h-14 flex items-center justify-center z-10"
+          @click="showMenu()">
+          <span v-if="menu">-</span>
+          <span v-else>+</span>
+        </div>
+      </div>
+    </div>
     <FormsModal :show="showModal" @close="showModal = false" :type="modalType"></FormsModal>
   </main>
 </template>
@@ -64,6 +70,12 @@ export default defineComponent({
       console.log(`Opening Modal for ${type}`);
     }
 
+    // Menu
+    const menu = ref(false)
+    const showMenu = () => {
+      menu.value = !menu.value;
+    }
+
     // Accounts
     const accounts = ref<AccountData[]>([]);
 
@@ -77,7 +89,7 @@ export default defineComponent({
     onMounted(() => {
       getAccountData()
     })
-    return { openCreateModal, showModal, modalType, getAccountData, accounts };
+    return { openCreateModal, showModal, modalType, getAccountData, accounts, menu, showMenu };
   }
 })
 </script>

@@ -21,15 +21,15 @@
       <Pockets />
     </div>
     <div class="absolute right-10 bottom-10">
-      <div class="flex flex-col gap-y-4 items-end">
-        <button v-if="menu" class="px-6 py-2 bg-primary text-primary-content hover:bg-primary-focus rounded-2xl z-20"
+      <div class="flex flex-col items-end gap-y-4">
+        <button v-if="menu" class="z-20 px-6 py-2 bg-primary text-primary-content hover:bg-primary-focus rounded-2xl"
           @click="openCreateModal('account')">Add Account</button>
 
-        <button v-if="menu" class="px-6 py-2 bg-primary text-primary-content hover:bg-primary-focus rounded-2xl z-20"
+        <button v-if="menu" class="z-20 px-6 py-2 bg-primary text-primary-content hover:bg-primary-focus rounded-2xl"
           @click="openCreateModal('pocket')">Add Pocket</button>
 
         <div
-          class="bg-success hover:opacity-50 cursor-pointer transition-all ease-in-out text-primary-content text-4xl rounded-full w-14 h-14 flex items-center justify-center z-10"
+          class="z-10 flex items-center justify-center text-4xl transition-all ease-in-out rounded-full cursor-pointer bg-success hover:opacity-50 text-primary-content w-14 h-14"
           @click="showMenu()">
           <span v-if="menu">-</span>
           <span v-else>+</span>
@@ -47,17 +47,17 @@ import FormsModal from './components/modals/FormsModal.vue'
 import firebaseAccountHelpers from "./firebase/accountHelpers";
 
 interface AccountData {
-  id: string;
-  bank: string;
-  balance: number;
-  digits: number;
-  name: string;
+  id?: string;
+  bank?: string;
+  balance?: string;
+  digits?: string;
+  name?: string;
 }
 
 export default defineComponent({
   components: {
     Pockets,
-    FormsModal,
+    FormsModaal,
     Accounts,
   },
   setup() {

@@ -5,13 +5,13 @@
     @click="closeOnOutsideClick"
   >
     <div
-      class="flex flex-col w-4/12 p-8 bg-base-100 rounded gap-y-6"
+      class="flex flex-col w-4/12 p-8 rounded bg-base-100 gap-y-6"
       ref="modalContent"
     >
-      <div class="flex items-center justify-between text-primary-content font-semibold">
+      <div class="flex items-center justify-between font-semibold text-primary-content">
         <h2>{{ title }}</h2>
         <button
-          class="p-2 bg-error rounded-lg"
+          class="p-2 rounded-lg bg-error"
           @click="$emit('close')"
         >
           Close

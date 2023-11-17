@@ -1,4 +1,5 @@
 <template>
+  <!-- This is the form to make a pocket -->
   <div class="flex flex-col items-center">
     <select class="w-8/12 px-2 py-1 text-lg" name="" id="">
       <option value="test"></option>

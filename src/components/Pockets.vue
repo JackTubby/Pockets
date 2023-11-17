@@ -1,4 +1,6 @@
 <template>
+  <!-- This is code for the pocket which has the name, amount, icon and transaction history it will also have a target bar at the bottom -->
+  <!-- Should also have a button to add to it -->
   <div class="w-1/4">
     <div
       class="border-2 rounded-2xl flex flex-col gap-y-10 min-h-[16rem] shadow-2xl"

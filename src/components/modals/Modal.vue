@@ -1,4 +1,5 @@
 <template>
+  <!-- This is a generic modal for reusability -->
   <div
     v-if="show"
     class="fixed top-0 left-0 flex items-center justify-center w-full h-full bg-black bg-opacity-50"

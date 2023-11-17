@@ -1,4 +1,5 @@
 <template>
+  <!-- This usees the reusable modal and adds the form that is required into it -->
   <Modal :show="show" :title="modalTitle" @close="$emit('close')">
     <AccountForm></AccountForm>
   </Modal>

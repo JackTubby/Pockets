@@ -1,4 +1,5 @@
 <template>
+  <!-- This is the form to add an account -->
   <div>
     <form
       class="flex flex-col items-center gap-y-4"

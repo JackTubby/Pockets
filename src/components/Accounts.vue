@@ -23,7 +23,7 @@ export default defineComponent({
     bank: String,
     balance: Number,
     currency: String,
-    digits: Number,
+    digits: String,
     name: String,
   },
   setup() {

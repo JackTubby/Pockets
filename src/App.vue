@@ -57,7 +57,7 @@ interface AccountData {
 export default defineComponent({
   components: {
     Pockets,
-    FormsModaal,
+    FormsModal,
     Accounts,
   },
   setup() {

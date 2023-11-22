@@ -7,8 +7,11 @@
     >
       <select
         class="w-8/12 p-2 text-lg border rounded-md cursor-pointer select select-bordered"
-        v-model="formData.bank">
-        <option value="" disabled selected class="cursor-pointer text-base-300">Select Bank</option>
+        v-model="formData.bank"
+      >
+        <option value="" disabled selected class="cursor-pointer text-base-300">
+          Select Bank
+        </option>
         <option value="NatWest" class="cursor-pointer">NatWest</option>
         <option value="NationWide" class="cursor-pointer">Nation Wide</option>
       </select>
@@ -52,7 +55,8 @@ interface FormData {
 }
 
 export default defineComponent({
-  setup() {
+  emits: ["formSubmitted"],
+  setup(_, { emit }) {
     const formData = ref<FormData>({
       bank: "",
       name: "",
@@ -60,14 +64,18 @@ export default defineComponent({
       balance: "",
     });
     const createUser = async () => {
-      const data = {
-        bank: formData.value.bank,
-        name: formData.value.name,
-        digits: formData.value.digits,
-        balance: formData.value.balance,
-      };
-      firebaseAccountHelpers.create(data);
-      return;
+      try {
+        const data = {
+          bank: formData.value.bank,
+          name: formData.value.name,
+          digits: formData.value.digits,
+          balance: formData.value.balance,
+        };
+        await firebaseAccountHelpers.create(data);
+        emit("formSubmitted");
+      } catch (error) {
+        console.error("Error creating account:", error);
+      }
     };
 
     return {

@@ -5,16 +5,15 @@
       <div class="mb-6">
 
       </div>
-      <div class="flex gap-x-8">
-        <Accounts v-for="account in accounts" v-if="accounts.length > 0" :key="account.id" :bank="account.bank"
+      <div class="flex gap-x-8" v-if="accounts.length > 0">
+        <Accounts v-for="account in accounts" :key="account.id" :bank="account.bank"
           :balance="account.balance" :currency="'GBP'" :digits="account.digits" :name="account.name" />
-        <div class="mx-auto" v-else>No account data available</div>
       </div>
+      <div class="mx-auto" v-else>No account data available</div>
     </div>
     <div class="flex flex-col text-center gap-y-2">
       <h2>Pockets</h2>
       <div>
-
       </div>
     </div>
     <div>
@@ -35,7 +34,7 @@ import firebaseAccountHelpers from "./firebase/accountHelpers";
 interface AccountData {
   id?: string;
   bank?: string;
-  balance?: string;
+  balance?: number;
   digits?: string;
   name?: string;
 }

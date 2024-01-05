@@ -7,6 +7,7 @@
         <Accounts
           v-for="account in accounts"
           :key="account.id"
+          :id="account.id"
           :bank="account.bank"
           :balance="account.balance"
           :currency="'GBP'"
@@ -59,6 +60,12 @@ export default defineComponent({
     MainMenu,
   },
   setup() {
+    // Menu
+    const menu = ref(false);
+    const showMenu = () => {
+      menu.value = !menu.value;
+    };
+
     // Modal
     const showModal = ref(false);
     const modalType = ref("");
@@ -68,11 +75,6 @@ export default defineComponent({
       console.log(`Opening Modal for ${type}`);
     };
 
-    // Menu
-    const menu = ref(false);
-    const showMenu = () => {
-      menu.value = !menu.value;
-    };
 
     // Accounts
     const accounts = ref<AccountData[]>([]);

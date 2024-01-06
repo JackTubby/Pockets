@@ -26,7 +26,7 @@
     </div>
     <MainMenu
       :menu="menu"
-      :openCreateModal="openCreateModal"
+      :openModal="openModal"
       :showMenu="showMenu"
     ></MainMenu>
     <FormsModal
@@ -69,7 +69,7 @@ export default defineComponent({
     // Modal
     const showModal = ref(false);
     const modalType = ref("");
-    const openCreateModal = (type: string) => {
+    const openModal = (type: string) => {
       modalType.value = type;
       showModal.value = true;
       console.log(`Opening Modal for ${type}`);
@@ -90,7 +90,7 @@ export default defineComponent({
       getAccountData();
     });
     return {
-      openCreateModal,
+      openModal,
       showModal,
       modalType,
       getAccountData,

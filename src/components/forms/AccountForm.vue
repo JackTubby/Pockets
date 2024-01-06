@@ -78,9 +78,30 @@ export default defineComponent({
       }
     };
 
+    const editAccount = async () => {
+      try {
+        const data = {
+          bank: formData.value.bank,
+          name: formData.value.name,
+          digits: formData.value.digits,
+          balance: formData.value.balance,
+        }
+        await firebaseAccountHelpers.edit(data);
+        emit("formSubmitted");
+      } catch (error) {
+        console.error("Error editing account:", error);
+      }
+    }
+
+    const getAccount = async () => {
+      try {} catch(error) {}
+    }
+
     return {
       formData,
       createUser,
+      editAccount,
+      getAccount
     };
   },
 });

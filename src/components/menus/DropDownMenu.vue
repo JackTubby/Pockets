@@ -1,7 +1,7 @@
 <template>
   <div class="absolute ml-auto">
     <div>
-      <div @click="showMenu">
+      <div @click="showMenu()">
         <img
           src="https://cdn-icons-png.flaticon.com/512/2311/2311524.png"
           width="20"

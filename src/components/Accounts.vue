@@ -9,7 +9,7 @@
         <DropDownMenu
           :accountId="id"
           :menu="menu"
-          :openModal="() => openModal(modalType, id)"
+          :openModal="openModal"
           :showMenu="showMenu"
           @close="showModal = false"
         />
@@ -24,11 +24,18 @@
       <p class="w-1/2 text-sm">{{ name }}</p>
     </div>
   </div>
+  <FormsModal
+    :show="showModal"
+    @close="showModal = false"
+    :type="modalType"
+    :accountId="accountId"
+  ></FormsModal>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
 import DropDownMenu from "./menus/DropDownMenu.vue";
+import FormsModal from "./modals/FormsModal.vue";
 
 // props from app.vue from the fetch account data req
 defineProps({
@@ -48,9 +55,8 @@ const showMenu = () => {
 
 const showModal = ref(false); // if show or hide
 const modalType = ref(""); // what modal to show
-const accountId = ref("");// store the clicked account
+const accountId = ref(""); // store the clicked account
 const openModal = (type: string, accountIdParam: string) => {
-  console.log(accountId.value, modalType.value, showModal.value)
   accountId.value = accountIdParam;
   modalType.value = type;
   showModal.value = true;

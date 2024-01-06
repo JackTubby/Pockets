@@ -24,13 +24,11 @@
       <p class="w-1/2 text-sm">{{ name }}</p>
     </div>
   </div>
-  <AlterModal :show="showModal" @close="showModal = false" :type="modalType" :accountId="accountId"></AlterModal>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
 import DropDownMenu from "./menus/DropDownMenu.vue";
-import AlterModal from "./modals/AlterModal.vue";
 
 // props from app.vue from the fetch account data req
 defineProps({

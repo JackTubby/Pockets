@@ -43,8 +43,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from "vue";
+<script setup lang="ts">
+import { ref } from "vue";
 import firebaseAccountHelpers from "../../firebase/accountHelpers";
 
 interface FormData {
@@ -54,55 +54,48 @@ interface FormData {
   balance: string;
 }
 
-export default defineComponent({
-  emits: ["formSubmitted"],
-  setup(_, { emit }) {
-    const formData = ref<FormData>({
-      bank: "",
-      name: "",
-      digits: "",
-      balance: "",
-    });
-    const createUser = async () => {
-      try {
-        const data = {
-          bank: formData.value.bank,
-          name: formData.value.name,
-          digits: formData.value.digits,
-          balance: formData.value.balance,
-        };
-        await firebaseAccountHelpers.create(data);
-        emit("formSubmitted");
-      } catch (error) {
-        console.error("Error creating account:", error);
-      }
-    };
+interface AccountData {
+  id?: string;
+  bank?: string;
+  balance?: number;
+  digits?: string;
+  name?: string;
+}
 
-    const editAccount = async () => {
-      try {
-        const data = {
-          bank: formData.value.bank,
-          name: formData.value.name,
-          digits: formData.value.digits,
-          balance: formData.value.balance,
-        }
-        await firebaseAccountHelpers.edit(data);
-        emit("formSubmitted");
-      } catch (error) {
-        console.error("Error editing account:", error);
-      }
-    }
-
-    const getAccount = async () => {
-      try {} catch(error) {}
-    }
-
-    return {
-      formData,
-      createUser,
-      editAccount,
-      getAccount
-    };
-  },
+const emit = defineEmits(["formSubmitted"]);
+const formData = ref<FormData>({
+  bank: "",
+  name: "",
+  digits: "",
+  balance: "",
 });
+
+const accounts = ref<AccountData[]>([]);
+
+const createUser = async () => {
+  try {
+    await firebaseAccountHelpers.create(formData.value);
+    emit("formSubmitted");
+  } catch (error) {
+    console.error("Error creating account:", error);
+  }
+};
+
+const editAccount = async () => {
+  try {
+    await firebaseAccountHelpers.edit(formData.value);
+    emit("formSubmitted");
+  } catch (error) {
+    console.error("Error editing account:", error);
+  }
+};
+
+const getAccount = async () => {
+  try {
+    accounts.value = await firebaseAccountHelpers.get();
+  } catch (error) {
+    console.error("Failed to fetch account data", error);
+  }
+};
+
 </script>

@@ -2,6 +2,7 @@
   <!-- This uses the reusable modal and adds the form that is required into it -->
   <Modal :show="show" :title="modalTitle" @close="$emit('close')">
     <AccountForm v-if="type === 'account'"></AccountForm>
+    <AccountForm v-if="type === 'editAccount'" :accountId="accountId" :type="type"></AccountForm>
     <PocketForm v-if="type === 'pocket'"></PocketForm>
   </Modal>
 </template>
@@ -12,20 +13,26 @@ import Modal from "./Modal.vue";
 import AccountForm from "../forms/AccountForm.vue";
 import PocketForm from "../forms/PocketForm.vue";
 
-// Using defineProps to define the component's props
 const props = defineProps({
   show: Boolean,
   type: String,
   accountId: String,
 });
-watch(() => props.type, () => {
-  console.log(props);
-});
-// Using defineEmits to define the emitted events
+
 defineEmits(["close"]);
 
 // Computing the modalTitle based on the prop 'type'
 const modalTitle = computed(() => {
-  return props.type === "account" ? "Account Form" : "Pockets Form";
+  if (props.type === "account") {
+    return "Add Account"
+  } else if (props.type === "pocket") {
+    return "Add Pocket"
+  } else if (props.type === "editAccount") {
+    return "Edit Account"
+  } else if (props.type === "deleteAccount") {
+    return "Delete Account"
+  } else {
+    
+  }
 });
 </script>

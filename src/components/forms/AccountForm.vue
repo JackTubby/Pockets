@@ -3,7 +3,9 @@
   <div>
     <form
       class="flex flex-col items-center gap-y-4"
-      @submit.prevent="createUser"
+      @submit.prevent="
+        type === 'account' ? createUser() : editAccount(accountId)
+      "
     >
       <select
         class="w-8/12 p-2 text-lg border rounded-md cursor-pointer select select-bordered"
@@ -37,14 +39,14 @@
         class="px-6 py-2 text-xl font-semibold rounded-md shadow-md text-primary-content bg-success"
         type="submit"
       >
-        Add Account
+        {{ buttonText }}
       </button>
     </form>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps, onMounted } from "vue";
+import { ref, defineProps, onMounted, computed } from "vue";
 import firebaseAccountHelpers from "../../firebase/accountHelpers";
 
 interface FormData {
@@ -78,9 +80,9 @@ const createUser = async () => {
   }
 };
 
-const editAccount = async () => {
+const editAccount = async (accountId: string) => {
   try {
-    await firebaseAccountHelpers.edit(formData.value);
+    await firebaseAccountHelpers.update(accountId, formData.value);
     emit("formSubmitted");
   } catch (error) {
     console.error("Error editing account:", error);
@@ -105,6 +107,19 @@ onMounted(async () => {
     } catch (error) {
       console.error("Error in fetching account:", error);
     }
+  }
+});
+
+const buttonText = computed(() => {
+  switch (props.type) {
+    case "editAccount":
+      return "Edit Account";
+    case "deleteAccount":
+      return "Delete Account"; // Assuming you want different text here
+    case "addAccount":
+      return "Add Account";
+    default:
+      return "Submit";
   }
 });
 </script>

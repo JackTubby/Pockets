@@ -17,7 +17,7 @@ const update = async (id: string, data: any) => {
   try {
     const collectionRef = doc(db, "bank_account", id);
     await updateDoc(collectionRef, {
-      data
+      ...data
     })
   } catch (err) {}
 };

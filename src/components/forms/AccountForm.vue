@@ -44,7 +44,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, defineProps, onMounted } from "vue";
 import firebaseAccountHelpers from "../../firebase/accountHelpers";
 
 interface FormData {
@@ -52,14 +52,6 @@ interface FormData {
   name: string;
   digits: string;
   balance: string;
-}
-
-interface AccountData {
-  id?: string;
-  bank?: string;
-  balance?: number;
-  digits?: string;
-  name?: string;
 }
 
 const emit = defineEmits(["formSubmitted"]);
@@ -70,7 +62,12 @@ const formData = ref<FormData>({
   balance: "",
 });
 
-const accounts = ref<AccountData[]>([]);
+const props = defineProps({
+  accountId: String,
+  type: String,
+});
+
+const accountId = ref(props.accountId);
 
 const createUser = async () => {
   try {
@@ -90,12 +87,24 @@ const editAccount = async () => {
   }
 };
 
-const getAccount = async () => {
+const getAccount = async (id: string) => {
   try {
-    accounts.value = await firebaseAccountHelpers.get();
+    return await firebaseAccountHelpers.getOne(id);
   } catch (error) {
     console.error("Failed to fetch account data", error);
   }
 };
 
+onMounted(async () => {
+  if (props.type === "editAccount" && props.accountId) {
+    try {
+      const getAccDetails = await getAccount(props.accountId);
+      if (getAccDetails) {
+        formData.value = { ...getAccDetails };
+      }
+    } catch (error) {
+      console.error("Error in fetching account:", error);
+    }
+  }
+});
 </script>

@@ -14,7 +14,7 @@
         <button
           v-if="menu"
           class="z-20 px-6 py-2 mb-4 bg-primary text-primary-content hover:bg-primary-focus rounded-2xl"
-          @click="openModal('edit', accountId)"
+          @click="openModal('editAccount', accountId)"
         >
           Edit Account
         </button>

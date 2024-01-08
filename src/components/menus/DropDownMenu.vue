@@ -21,7 +21,7 @@
         <button
           v-if="menu"
           class="z-20 px-6 py-2 bg-primary text-primary-content hover:bg-primary-focus rounded-2xl"
-          @click="openModal('delete', accountId)"
+          @click="openModal('deleteAccount', accountId)"
         >
           Delete Account
         </button>

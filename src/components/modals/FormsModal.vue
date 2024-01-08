@@ -1,14 +1,15 @@
 <template>
   <!-- This uses the reusable modal and adds the form that is required into it -->
   <Modal :show="show" :title="modalTitle" @close="$emit('close')">
-    <AccountForm v-if="type === 'account'"></AccountForm>
+    <AccountForm v-if="type === 'account'" :type="type"></AccountForm>
     <AccountForm v-if="type === 'editAccount'" :accountId="accountId" :type="type"></AccountForm>
+    <AccountForm v-if="type === 'deleteAccount'" :accountId="accountId" :type="type"></AccountForm>
     <PocketForm v-if="type === 'pocket'"></PocketForm>
   </Modal>
 </template>
 
 <script setup lang="ts">
-import { computed, watch } from "vue";
+import { computed } from "vue";
 import Modal from "./Modal.vue";
 import AccountForm from "../forms/AccountForm.vue";
 import PocketForm from "../forms/PocketForm.vue";

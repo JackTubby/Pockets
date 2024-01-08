@@ -1,5 +1,5 @@
 // https://firebase.google.com/docs/firestore/query-data/get-data#get_all_documents_in_a_collection
-import { collection, addDoc, getDocs, doc, getDoc, updateDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs, doc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
 import db from "./init";
 
 const create = async (data: any) => {
@@ -50,7 +50,9 @@ const getOne = async (id: string) => {
   }
 };
 
-const remove = () => {};
+const remove = async (id: string) => {
+  return await deleteDoc(doc(db, "bank_account", id))
+};
 
 export default {
   create,

@@ -29,6 +29,7 @@
     @close="showModal = false"
     :type="modalType"
     :accountId="accountId"
+    @updateData="refreshData"
   ></FormsModal>
 </template>
 
@@ -61,6 +62,11 @@ const openModal = (type: string, accountIdParam: string) => {
   modalType.value = type;
   showModal.value = true;
 };
+
+const refreshData = () => {
+    // logic to refresh data
+    showModal.value = false; // close the modal
+  };
 
 // Make the dropdown menu work
 // Create the edit/delete modal

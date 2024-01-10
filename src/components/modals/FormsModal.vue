@@ -1,23 +1,17 @@
 <template>
   <!-- This uses the reusable modal and adds the form that is required into it -->
   <Modal :show="show" :title="modalTitle" @close="$emit('close')">
-    <AccountForm v-if="type === 'account'" :type="type"></AccountForm>
-    <AccountForm
-      v-if="type === 'editAccount'"
-      :accountId="accountId"
-      :type="type"
-    ></AccountForm>
-    <AccountForm
-      v-if="type === 'deleteAccount'"
-      :accountId="accountId"
-      :type="type"
-    ></AccountForm>
+    <AccountForm v-if="type === 'account'" :type="type" @formSubmitted="handleDataChange"></AccountForm>
+    <AccountForm v-if="type === 'editAccount'" :accountId="accountId" :type="type" @formSubmitted="handleDataChange">
+    </AccountForm>
+    <AccountForm v-if="type === 'deleteAccount'" :accountId="accountId" :type="type"
+      @formSubmitted="handleDataChange"></AccountForm>
     <PocketForm v-if="type === 'pocket'"></PocketForm>
   </Modal>
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, defineEmits } from "vue";
 import Modal from "./Modal.vue";
 import AccountForm from "../forms/AccountForm.vue";
 import PocketForm from "../forms/PocketForm.vue";
@@ -28,7 +22,7 @@ const props = defineProps({
   accountId: String,
 });
 
-defineEmits(["close"]);
+const emit = defineEmits(['close', 'updateData']);
 
 // Computing the modalTitle based on the prop 'type'
 const modalTitle = computed(() => {
@@ -43,4 +37,8 @@ const modalTitle = computed(() => {
   } else {
   }
 });
+
+const handleDataChange = () => {
+  emit('updateData');
+};
 </script>

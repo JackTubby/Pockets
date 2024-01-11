@@ -13,6 +13,7 @@
           :currency="'GBP'"
           :digits="account.digits"
           :name="account.name"
+          @updateData="updateData"
         />
       </div>
       <div class="mx-auto" v-else>No account data available</div>
@@ -75,6 +76,9 @@ export default defineComponent({
       console.log(`Opening Modal for ${type}`);
     };
 
+    const updateData = () => {
+      getAccountData()
+    }
 
     // Accounts
     const accounts = ref<AccountData[]>([]);
@@ -97,6 +101,7 @@ export default defineComponent({
       accounts,
       menu,
       showMenu,
+      updateData,
     };
   },
 });

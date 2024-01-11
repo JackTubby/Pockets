@@ -34,9 +34,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, defineEmits } from "vue";
 import DropDownMenu from "./menus/DropDownMenu.vue";
 import FormsModal from "./modals/FormsModal.vue";
+
+const emit = defineEmits(['updateData']);
 
 // props from app.vue from the fetch account data req
 defineProps({
@@ -64,7 +66,7 @@ const openModal = (type: string, accountIdParam: string) => {
 };
 
 const refreshData = () => {
-    // logic to refresh data
+    emit('updateData')
     showModal.value = false; // close the modal
   };
 

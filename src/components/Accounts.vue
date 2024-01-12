@@ -69,9 +69,4 @@ const refreshData = () => {
     emit('updateData')
     showModal.value = false; // close the modal
   };
-
-// Make the dropdown menu work
-// Create the edit/delete modal
-// functionality to edit/delete - decide if I should put logic in the edit/delete modal or keep here (prob better here)
-// need to make sure when the edit/delete modal is opened the id is passed
 </script>

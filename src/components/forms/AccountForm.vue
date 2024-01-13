@@ -9,7 +9,7 @@
             Select Bank
           </option>
           <option value="NatWest" class="cursor-pointer">NatWest</option>
-          <option value="NationWide" class="cursor-pointer">Nation Wide</option>
+          <option value="Nationwide" class="cursor-pointer">Nation Wide</option>
         </select>
         <input class="w-8/12 p-2 text-lg border rounded-md input input-bordered" type="text" placeholder="Card Name"
           v-model="formData.name" />

@@ -4,8 +4,8 @@
     <AccountForm v-if="type === 'account'" :type="type" @formSubmitted="handleDataChange"></AccountForm>
     <AccountForm v-if="type === 'editAccount'" :accountId="accountId" :type="type" @formSubmitted="handleDataChange">
     </AccountForm>
-    <AccountForm v-if="type === 'deleteAccount'" :accountId="accountId" :type="type"
-      @formSubmitted="handleDataChange"></AccountForm>
+    <AccountForm v-if="type === 'deleteAccount'" :accountId="accountId" :type="type" @formSubmitted="handleDataChange">
+    </AccountForm>
     <PocketForm v-if="type === 'pocket'"></PocketForm>
   </Modal>
 </template>

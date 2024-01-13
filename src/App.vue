@@ -59,8 +59,9 @@ const openModal = (type: string) => {
   console.log(`Opening Modal for ${type}`);
 };
 
-const updateData = () => {
+const updateData = async () => {
   getAccountData()
+  accountTotal.value = await getAccountTotal();
 }
 
 // Accounts

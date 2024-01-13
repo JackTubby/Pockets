@@ -1,7 +1,7 @@
 <template>
-  <main class="container mx-auto">
+  <main class="container mx-auto mt-4">
     <div class="flex flex-col mb-20 text-center gap-y-2">
-      <h2>Accounts</h2>
+      <h2 class="text-3xl">Accounts</h2>
       <div class="mb-6"></div>
       <div class="flex gap-x-8" v-if="accounts.length > 0">
         <Accounts
@@ -19,7 +19,7 @@
       <div class="mx-auto" v-else>No account data available</div>
     </div>
     <div class="flex flex-col text-center gap-y-2">
-      <h2>Pockets</h2>
+      <h2 class="text-3xl">Pockets</h2>
       <div></div>
     </div>
     <div>

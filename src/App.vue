@@ -1,12 +1,17 @@
 <template>
   <main class="container mx-auto mt-4">
     <div class="flex flex-col mb-20 text-center gap-y-2">
-      <h2 class="text-3xl">Accounts</h2>
-      <div class="mb-6"></div>
-      <div class="flex gap-x-8" v-if="accounts.length > 0">
-        <Accounts v-for="account in accounts" :key="account.id" :id="account.id" :bank="account.bank"
-          :balance="account.balance" :currency="'GBP'" :digits="account.digits" :name="account.name"
-          @updateData="updateData" />
+      <h2 class="text-3xl mb-6">Accounts</h2>
+      <div v-if="accounts.length > 0">
+        <div class="flex gap-x-8">
+          <Accounts v-for="account in accounts" :key="account.id" :id="account.id" :bank="account.bank"
+            :balance="account.balance" :currency="'GBP'" :digits="account.digits" :name="account.name"
+            @updateData="updateData" />
+        </div>
+        <h2 class="text-2xl mt-10">
+          <span>Account Total: </span>
+          <span>£{{ accountTotal }}</span>
+        </h2>
       </div>
       <div class="mx-auto" v-else>No account data available</div>
     </div>
@@ -23,12 +28,13 @@
   </main>
 </template>
 <script setup lang="ts">
-import { defineComponent, ref, onMounted, defineEmits } from "vue";
+import { ref, onMounted } from "vue";
 import Accounts from "./components/Accounts.vue";
 import Pockets from "./components/Pockets.vue";
 import FormsModal from "./components/modals/FormsModal.vue";
 import MainMenu from "./components/menus/MainMenu.vue";
 import firebaseAccountHelpers from "./firebase/accountHelpers";
+import { getAccountTotal } from "./composables/accountTotal.js"
 
 interface AccountData {
   id?: string;
@@ -67,7 +73,10 @@ const getAccountData = async () => {
     console.error("Failed to fetch account data", err);
   }
 };
-onMounted(() => {
+
+const accountTotal = ref(0);
+onMounted(async () => {
   getAccountData();
+  accountTotal.value = await getAccountTotal();
 });
 </script>

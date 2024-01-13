@@ -1,11 +1,11 @@
-import { ref } from "vue";
-import firebaseAccountHelpers from "./firebase/accountHelpers";
+import firebaseAccountHelpers from "../firebase/accountHelpers";
 
-export function getAccountTotal() {
-  const data = ref(null);
-  data.value = firebaseAccountHelpers.get();
+export async function getAccountTotal() {
+  let total = 0;
+  const getData = await firebaseAccountHelpers.get();
+  getData.forEach((i) => {
+    total += i.balance;
+  });
 
-  console.log('here: ', data)
-
-  return data;
+  return total;
 }

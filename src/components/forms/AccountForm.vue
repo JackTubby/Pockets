@@ -1,49 +1,24 @@
 <template>
   <!-- This is the form to add an account -->
   <div>
-    <form
-      class="flex flex-col items-center gap-y-4"
-      @submit.prevent="handleFormSubmit"
-    >
-      <div v-if="type !== 'deleteAccount'">
-        <select
-          class="w-8/12 p-2 text-lg border rounded-md cursor-pointer select select-bordered"
-          v-model="formData.bank"
-        >
-          <option
-            value=""
-            disabled
-            selected
-            class="cursor-pointer text-base-300"
-          >
+    <form class="flex flex-col items-center gap-y-4" @submit.prevent="handleFormSubmit">
+      <div v-if="type !== 'deleteAccount'" class="flex flex-col gap-y-4 w-full items-center">
+        <select class="w-8/12 p-2 text-lg border rounded-md cursor-pointer select select-bordered"
+          v-model="formData.bank">
+          <option value="" disabled selected class="cursor-pointer text-neutral">
             Select Bank
           </option>
           <option value="NatWest" class="cursor-pointer">NatWest</option>
           <option value="NationWide" class="cursor-pointer">Nation Wide</option>
         </select>
-        <input
-          class="w-8/12 p-2 text-lg border rounded-md input input-bordered"
-          type="text"
-          placeholder="Card Name"
-          v-model="formData.name"
-        />
-        <input
-          class="w-8/12 p-2 text-lg border rounded-md input input-bordered"
-          type="text"
-          placeholder="Last Four Digits"
-          v-model="formData.digits"
-        />
-        <input
-          class="w-8/12 p-2 text-lg border rounded-md input input-bordered"
-          type="number"
-          placeholder="Balance"
-          v-model="formData.balance"
-        />
+        <input class="w-8/12 p-2 text-lg border rounded-md input input-bordered" type="text" placeholder="Card Name"
+          v-model="formData.name" />
+        <input class="w-8/12 p-2 text-lg border rounded-md input input-bordered" type="text"
+          placeholder="Last Four Digits" v-model="formData.digits" />
+        <input class="w-8/12 p-2 text-lg border rounded-md input input-bordered" type="number" placeholder="Balance"
+          v-model="formData.balance" />
       </div>
-      <button
-        class="px-6 py-2 text-xl font-semibold rounded-md shadow-md text-primary-content bg-success"
-        type="submit"
-      >
+      <button class="px-6 py-2 text-xl font-semibold rounded-md shadow-md text-neutral bg-success" type="submit">
         {{ buttonText }}
       </button>
     </form>

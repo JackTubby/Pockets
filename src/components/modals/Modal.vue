@@ -1,20 +1,11 @@
 <template>
   <!-- This is a generic modal for reusability -->
-  <div
-    v-if="show"
-    class="fixed top-0 left-0 flex items-center justify-center w-full h-full bg-black bg-opacity-50"
-    @click="closeOnOutsideClick"
-  >
-    <div
-      class="flex flex-col w-4/12 p-8 rounded bg-base-100 gap-y-6"
-      ref="modalContent"
-    >
+  <div v-if="show" class="fixed top-0 left-0 flex items-center justify-center w-full h-full bg-black bg-opacity-50"
+    @click="closeOnOutsideClick">
+    <div class="flex flex-col w-4/12 p-8 rounded bg-base-100 gap-y-6" ref="modalContent">
       <div class="flex items-center justify-between font-semibold text-primary-content">
         <h2>{{ title }}</h2>
-        <button
-          class="p-2 rounded-lg bg-error"
-          @click="$emit('close')"
-        >
+        <button class="p-2 rounded-lg bg-error" @click="$emit('close')">
           Close
         </button>
       </div>

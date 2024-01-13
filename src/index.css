@@ -2,7 +2,8 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&family=Oswald:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&family=Lemon&family=Salsa&display=swap');
 
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Salsa', 'Lato' ,'Open Sans', sans-serif;
 }

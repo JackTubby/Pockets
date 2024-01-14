@@ -30,7 +30,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import Accounts from "./components/Accounts.vue";
-import Pockets from "./components/Pockets.vue";
+import Pockets from "./components/pockets/Pockets.vue";
 import FormsModal from "./components/modals/FormsModal.vue";
 import MainMenu from "./components/menus/MainMenu.vue";
 import firebaseAccountHelpers from "./firebase/accountHelpers";

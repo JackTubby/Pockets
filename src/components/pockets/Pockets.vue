@@ -25,17 +25,13 @@
         </ul>
       </div>
     </div>
-    <!-- Target bar -->
-    <Target />
   </div>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
-import Target from "./Target.vue";
 
 export default defineComponent({
   components: {
-    Target,
   },
 });
 </script>

@@ -4,9 +4,8 @@
       <h2 class="text-3xl mb-6">Accounts</h2>
       <div v-if="accounts.length > 0">
         <div class="flex gap-x-8">
-          <Accounts v-for="account in accounts" :key="account.id" :id="account.id" :bank="account.bank"
-            :balance="account.balance" :currency="'GBP'" :digits="account.digits" :name="account.name"
-            @updateData="updateData" />
+          <Accounts v-for="item in accounts" :key="item.id" :id="item.id" :bank="item.bank" :balance="item.balance"
+            :currency="'GBP'" :digits="item.digits" :name="item.name" @updateData="updateData" />
         </div>
         <h2 class="text-2xl mt-10">
           <span>Account Total: </span>
@@ -33,7 +32,7 @@ import Accounts from "./components/Accounts.vue";
 import Pockets from "./components/pockets/Pockets.vue";
 import FormsModal from "./components/modals/FormsModal.vue";
 import MainMenu from "./components/menus/MainMenu.vue";
-import firebaseAccountHelpers from "./firebase/accountHelpers";
+import { get } from "./composables/accountHelpers";
 import { getAccountTotal } from "./composables/accountTotal.js"
 
 interface AccountData {
@@ -69,15 +68,22 @@ const accounts = ref<AccountData[]>([]);
 
 const getAccountData = async () => {
   try {
-    accounts.value = await firebaseAccountHelpers.get();
+    const { data, error } = await get("bank_account");
+    if (error.value) {
+      console.error("Error fetching accounts:", error.value);
+      // Handle error appropriately
+    } else {
+      accounts.value = data;
+    }
   } catch (err) {
-    console.error("Failed to fetch account data", err);
+    console.error("Error:", err);
+    // Handle error appropriately
   }
 };
 
 const accountTotal = ref(0);
 onMounted(async () => {
-  getAccountData();
+  await getAccountData();
   accountTotal.value = await getAccountTotal();
 });
-</script>
+</script>./composables/accountHelpers.js

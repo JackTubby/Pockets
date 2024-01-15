@@ -27,7 +27,7 @@
 
 <script setup lang="ts">
 import { ref, defineProps, onMounted, computed } from "vue";
-import firebaseAccountHelpers from "../../firebase/accountHelpers";
+import { create, update, getOne, remove } from "../../composables/accountHelpers";
 
 interface FormData {
   bank: string;
@@ -53,7 +53,7 @@ const accountId = ref(props.accountId);
 
 const createUser = async () => {
   try {
-    await firebaseAccountHelpers.create(formData.value);
+    await create(formData.value, "bank_account");
   } catch (error) {
     console.error("Error creating account:", error);
   }
@@ -61,7 +61,7 @@ const createUser = async () => {
 
 const editAccount = async (accountId: string) => {
   try {
-    await firebaseAccountHelpers.update(accountId, formData.value);
+    await update(accountId, formData.value, "bank_account");
   } catch (error) {
     console.error("Error editing account:", error);
   }
@@ -69,7 +69,7 @@ const editAccount = async (accountId: string) => {
 
 const getAccount = async (id: string) => {
   try {
-    return await firebaseAccountHelpers.getOne(id);
+    return await getOne(id, "bank_account");
   } catch (error) {
     console.error("Failed to fetch account data", error);
   }
@@ -107,7 +107,7 @@ const handleFormSubmit = async () => {
 
 const deleteAccount = async (id: string) => {
   try {
-    return await firebaseAccountHelpers.remove(id);
+    return await remove(id, "bank_account");
   } catch (error) {
     console.log("Failed to delete account", error);
   }
@@ -127,3 +127,4 @@ const buttonText = computed(() => {
   }
 });
 </script>
+../../composables/accountHelpers

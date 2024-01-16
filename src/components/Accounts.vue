@@ -7,8 +7,8 @@
         <h2 class="text-left">{{ bank }}</h2>
       </span>
       <div class="ml-auto mr-5">
-        <DropDownMenu :accountId="id" :menu="menu" :openModal="openModal" :showMenu="showMenu"
-          @close="showModal = false" />
+        <DropDownMenu :accountId="id" :menu="isActiveMenu" :openModal="openModal" :showMenu="showMenu"
+          @close="showModal = false" @click="emit('toggleMenu', id)" />
       </div>
     </div>
     <div class="flex items-end justify-center gap-x-2">
@@ -28,7 +28,7 @@ import { ref, defineEmits, computed } from "vue";
 import DropDownMenu from "./menus/DropDownMenu.vue";
 import FormsModal from "./modals/FormsModal.vue";
 
-const emit = defineEmits(['updateData']);
+const emit = defineEmits(['updateData', 'toggleMenu']);
 
 // props from app.vue from the fetch account data req
 const props = defineProps({
@@ -38,6 +38,7 @@ const props = defineProps({
   currency: String,
   digits: String,
   name: String,
+  isActiveMenu: Boolean,
 });
 
 // Handle opening & closing menu

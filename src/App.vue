@@ -5,7 +5,7 @@
       <div v-if="accounts.length > 0">
         <div class="flex gap-x-8">
           <Accounts v-for="item in accounts" :key="item.id" :id="item.id" :bank="item.bank" :balance="item.balance"
-            :currency="'GBP'" :digits="item.digits" :name="item.name" @updateData="updateData" />
+            :currency="'GBP'" :digits="item.digits" :name="item.name" @updateData="updateData" :isActiveMenu="activeMenuId === item.id" @toggleMenu="handleToggleMenu" />
         </div>
         <h2 class="text-2xl mt-10">
           <span>Account Total: </span>
@@ -86,4 +86,13 @@ onMounted(async () => {
   await getAccountData();
   accountTotal.value = await getAccountTotal();
 });
-</script>./composables/accountHelpers.js
+
+const activeMenuId = ref(null);
+const handleToggleMenu = (menuId: any) => {
+  if (activeMenuId.value === menuId) {
+    activeMenuId.value = null; // Close the menu if it's already open
+  } else {
+    activeMenuId.value = menuId; // Open the clicked menu
+  }
+};
+</script>

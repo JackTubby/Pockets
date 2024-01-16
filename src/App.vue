@@ -1,11 +1,12 @@
 <template>
-  <main class="container mx-auto mt-4">
+  <main v-if="!isLoading" class="container mx-auto mt-4">
     <div class="flex flex-col mb-20 text-center gap-y-2">
       <h2 class="text-3xl mb-6">Accounts</h2>
       <div v-if="accounts.length > 0">
         <div class="flex gap-x-8">
           <Accounts v-for="item in accounts" :key="item.id" :id="item.id" :bank="item.bank" :balance="item.balance"
-            :currency="'GBP'" :digits="item.digits" :name="item.name" @updateData="updateData" :isActiveMenu="activeMenuId === item.id" @toggleMenu="handleToggleMenu" />
+            :currency="'GBP'" :digits="item.digits" :name="item.name" @updateData="updateData"
+            :isActiveMenu="activeMenuId === item.id" @toggleMenu="handleToggleMenu" />
         </div>
         <h2 class="text-2xl mt-10">
           <span>Account Total: </span>
@@ -23,14 +24,18 @@
     </div>
     <MainMenu :menu="menu" :openModal="openModal" :showMenu="showMenu"></MainMenu>
     <FormsModal :show="showModal" @close="showModal = false" :type="modalType" @updateData="updateData"></FormsModal>
-
   </main>
+
+  <div v-else class="w-full h-full red-300 absolute">
+    <LoadingScreen />
+  </div>
 </template>
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import Accounts from "./components/Accounts.vue";
 import Pockets from "./components/pockets/Pockets.vue";
 import FormsModal from "./components/modals/FormsModal.vue";
+import LoadingScreen from "./components/LoadingScreen.vue";
 import MainMenu from "./components/menus/MainMenu.vue";
 import { get } from "./composables/accountHelpers";
 import { getAccountTotal } from "./composables/accountTotal.js"
@@ -65,18 +70,27 @@ const updateData = async () => {
 
 // Accounts
 const accounts = ref<AccountData[]>([]);
-
+const isLoading = ref(false)
+const flipIsLoading = () => {
+  setTimeout(() => {
+    isLoading.value = !isLoading.value
+  }, 1000)
+}
 const getAccountData = async () => {
   try {
+    isLoading.value = true
     const { data, error } = await get("bank_account");
     if (error.value) {
       console.error("Error fetching accounts:", error.value);
+      flipIsLoading()
       // Handle error appropriately
     } else {
       accounts.value = data;
+      flipIsLoading()
     }
   } catch (err) {
     console.error("Error:", err);
+    flipIsLoading()
     // Handle error appropriately
   }
 };

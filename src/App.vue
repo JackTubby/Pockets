@@ -1,5 +1,6 @@
 <template>
-  <main v-if="!isLoading" class="container mx-auto mt-4">
+  <!-- <main v-if="!isLoading" class="container mx-auto mt-4"> -->
+  <main class="container mx-auto mt-4">
     <div class="flex flex-col mb-20 text-center gap-y-2">
       <h2 class="text-3xl mb-6">Accounts</h2>
       <div v-if="accounts.length > 0">
@@ -26,9 +27,9 @@
     <FormsModal :show="showModal" @close="showModal = false" :type="modalType" @updateData="updateData"></FormsModal>
   </main>
 
-  <div v-else class="w-full h-full red-300 absolute">
+  <!-- <div v-else class="w-full h-full red-300 absolute">
     <LoadingScreen />
-  </div>
+  </div> -->
 </template>
 <script setup lang="ts">
 import { ref, onMounted } from "vue";

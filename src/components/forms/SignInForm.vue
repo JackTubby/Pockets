@@ -18,7 +18,7 @@ if (error.value !== null) {
 }
 
 const handleFormSubmit = () => {
-  signInWithEmailAndPassword(auth, formData.value.email, formData.value.email)
+  signInWithEmailAndPassword(auth, formData.value.email, formData.value.password)
     .then((userCredential) => {
       // Signed in 
       const user = userCredential.user;
@@ -35,13 +35,13 @@ const handleFormSubmit = () => {
 </script>
 <template>
   <section>
-    <h1>Sign In</h1>
+    <h1 class="text-center pb-6 text-2xl">Sign In</h1>
     <form class="flex flex-col items-center gap-y-4" @submit.prevent="handleFormSubmit">
       <input type="email" placeholder="Email" v-model="formData.email" requird
-        class="border border-primary py-3 w-auto px-1">
+        class="border border-primary py-3 w-auto px-1 rounded-md">
       <input type="password" placeholder="Password" v-model="formData.password" required
-        class="border border-primary py-3 w-auto px-1">
-      <button type="submit" class="px-10 py-4 bg-primary text-white">Sign Up</button>
+        class="border border-primary py-3 w-auto px-1 rounded-md">
+      <button type="submit" class="px-10 py-4 bg-primary text-white rounded-xl">Sign In</button>
     </form>
   </section>
 </template>

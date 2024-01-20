@@ -51,7 +51,7 @@ const props = defineProps({
 
 const accountId = ref(props.accountId);
 
-const createUser = async () => {
+const createAccount = async () => {
   try {
     await create(formData.value, "bank_account");
   } catch (error) {
@@ -79,7 +79,7 @@ onMounted(async () => {
   if (props.type === "editAccount" && props.accountId) {
     try {
       const getAccDetails = await getAccount(props.accountId);
-      if (getAccDetails) {
+      if (getAccDetails !== undefined) {
         formData.value = { ...getAccDetails };
       }
     } catch (error) {
@@ -97,7 +97,7 @@ const handleFormSubmit = async () => {
       await deleteAccount(props.accountId);
       break;
     case "account":
-      await createUser();
+      await createAccount();
       break;
     default:
       console.error("No method exists on this type");
@@ -127,4 +127,3 @@ const buttonText = computed(() => {
   }
 });
 </script>
-../../composables/accountHelpers

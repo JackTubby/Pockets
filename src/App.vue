@@ -104,6 +104,7 @@ onMounted(async () => {
   accountTotal.value = await getAccountTotal();
 });
 
+// Menu Toggler
 const activeMenuId = ref(null);
 const handleToggleMenu = (menuId: any) => {
   if (activeMenuId.value === menuId) {
@@ -113,6 +114,7 @@ const handleToggleMenu = (menuId: any) => {
   }
 };
 
+// Auth
 const isSignedIn = ref(false);
 onMounted(() => {
   const auth = getAuth();
